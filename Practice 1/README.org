@@ -1,0 +1,5 @@
+#+TITLE: Задание №1: Онлайн аукцион
+
+Hello, world
+
+[[./Screenshot.png]]
