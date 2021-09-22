@@ -1,0 +1,132 @@
+#+TITLE: Задание №2
+#+AUTHOR: Арыслан Якшибаев, БПИ196
+#+DATE:
+
+* Этот документ доступен в [[file:README.pdf][PDF формате]] :noexport:
+
+* Задача 1
+#+begin_quote
+Нарисуйте E/R диаграмму для библиотечной системы на основе следующих требований:
+
+- В библиотеке хранятся экземпляры книг. Каждая копия (экземпляр) имеет свой уникальный номер копии, положение на полке и может быть однозначно идентифицирована с помощью номера копии вместе с ISBN.
+- Каждая книга имеет уникальный номер ISBN, год, название, автора и количество страниц.
+- Книги издаются издательствами. У издателя есть имя и адрес.
+- В библиотечной системе книгам присвоена одна категория или несколько. Категории образуют иерархию, поэтому категория может быть просто другой подчиненой категорией (подкатегория). Категория имеет только имя и никаких других свойств.
+- Каждому читателю присвается уникальный номер. У читателя есть Фамилия, Имя, адрес и день рождения. Читатель может взять один или несколько экземпляров книг. При взятии книги записывается запланированая дата возврата.
+#+end_quote
+
+#+begin_src plantuml :file img/task1.png :exports both
+/'
+ ' skinparam linetype ortho
+ '/
+
+entity Book {
+        ,* id
+        --
+        ,* ISBN
+        ,* Year
+        ,* Title
+        ,* Author
+        ,* Pages count
+}
+
+entity BookCopy {
+        ,* id
+        --
+        ,* Position
+}
+
+entity Publisher {
+        ,* id
+        --
+        ,* Name
+        ,* Address
+}
+
+entity Category {
+        ,* id
+        --
+        ,* Name
+}
+
+entity Reader {
+        ,* id
+        --
+        ,* First name
+        ,* Last name
+        ,* Address
+        ,* Birthday
+}
+
+entity Booking {
+        ,* id
+        --
+        ,* Return date
+}
+
+Book }o--|| Publisher: is published by
+Book }o--o{ Category: belongs to
+Category }o--|| Category: is subcategory of
+Reader |o--o{ Booking: is taken by
+Booking |o--|| BookCopy: belongs to
+Book ||--o{ BookCopy: is a copy of
+#+end_src
+
+#+RESULTS:
+[[file:img/task1.png]]
+
+* Задача 2
+#+begin_quote
+Смоделируйте следующие отношения в E/R.
+
+- Квартира расположена в доме на улице в городе в стране
+- Две команды играют друг против друга в футбол под руководством арбитра
+- У каждого человека (мужчины и женщины) есть отец и мать
+#+end_quote
+
+** 2.1
+#+begin_quote
+Квартира расположена в доме на улице в городе в стране
+#+end_quote
+
+#+begin_src plantuml :file img/2_1.png :exports both
+Apartment }o--|| House: is in
+House }o--|| Street: is in
+Street }o--|| City: is in
+City }o--|| Country: is in
+#+end_src
+
+#+RESULTS:
+[[file:2_1.png]]
+
+** 2.2
+#+begin_quote
+Две команды играют друг против друга в футбол под руководством арбитра
+#+end_quote
+
+#+begin_src plantuml :file img/2_2.png :exports both
+Team ||--|| Team: is playing against
+Team }o--|| Arbiter: is supervising
+#+end_src
+
+** 2.3
+#+begin_quote
+У каждого человека (мужчины и женщины) есть отец и мать
+#+end_quote
+
+#+begin_src plantuml :file img/2_3.png :exports both
+Woman }o--|| Woman: is the mother to
+Man }o--|| Woman: is the mother to
+
+Woman }o--|| Man: is the father to
+Man }o--|| Man: is the father to
+#+end_src
+
+#+RESULTS:
+[[file:img/2_3.png]]
+
+
+* Задача 3
+#+begin_quote
+Смоделируйте E/R-модель в виде E/R диаграммы
+#+end_quote
