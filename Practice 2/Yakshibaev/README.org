@@ -97,7 +97,7 @@ City }o--|| Country: is in
 #+end_src
 
 #+RESULTS:
-[[file:2_1.png]]
+[[file:img/2_1.png]]
 
 ** 2.2
 #+begin_quote
@@ -108,6 +108,9 @@ City }o--|| Country: is in
 Team ||--|| Team: is playing against
 Team }o--|| Arbiter: is supervising
 #+end_src
+
+#+RESULTS:
+[[file:img/2_2.png]]
 
 ** 2.3
 #+begin_quote
