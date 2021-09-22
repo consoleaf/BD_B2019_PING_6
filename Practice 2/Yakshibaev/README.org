@@ -15,7 +15,7 @@
 - Каждому читателю присвается уникальный номер. У читателя есть Фамилия, Имя, адрес и день рождения. Читатель может взять один или несколько экземпляров книг. При взятии книги записывается запланированая дата возврата.
 #+end_quote
 
-#+begin_src plantuml :file img/task1.png :exports both
+#+begin_src plantuml :file img/task1.png :exports both :cache yes
 /'
  ' skinparam linetype ortho
  '/
@@ -64,15 +64,16 @@ entity Booking {
         ,* Return date
 }
 
-Book }o--|| Publisher: is published by
-Book }o--o{ Category: belongs to
-Category }o--|| Category: is subcategory of
-Reader |o--o{ Booking: is taken by
-Booking |o--|| BookCopy: belongs to
-Book ||--o{ BookCopy: is a copy of
+Book "is published by" }o--up-|| "has published" Publisher
+Book "is assigned to" }o--down-o{ "describes" Category
+Category "is parent of" }o---|| "is subcategory of" Category
+Reader "takes" |o--o{ "is taken by" Booking
+Booking "contains" |o--|| "is included in" BookCopy
+Book "is identified by" ||-right----o{ "is a copy of" BookCopy
 #+end_src
 
-#+RESULTS:
+#+attr_latex: :float t :width 10cm
+#+RESULTS[ec35360cd471f604f982b462398dd3194ce0bc86]:
 [[file:img/task1.png]]
 
 * Задача 2
@@ -89,14 +90,15 @@ Book ||--o{ BookCopy: is a copy of
 Квартира расположена в доме на улице в городе в стране
 #+end_quote
 
-#+begin_src plantuml :file img/2_1.png :exports both
-Apartment }o--|| House: is in
-House }o--|| Street: is in
-Street }o--|| City: is in
+#+begin_src plantuml :file img/2_1.png :exports both :cache yes
+Apartment }o-Right-|| House: is in
+House }o-Down-|| Street: is in
+Street }o-Left-|| City: is in
 City }o--|| Country: is in
 #+end_src
 
-#+RESULTS:
+#+attr_latex: :height 15cm
+#+RESULTS[ce7006294b9dc3d7da12183a0ae241b649688e47]:
 [[file:img/2_1.png]]
 
 ** 2.2
@@ -104,12 +106,12 @@ City }o--|| Country: is in
 Две команды играют друг против друга в футбол под руководством арбитра
 #+end_quote
 
-#+begin_src plantuml :file img/2_2.png :exports both
-Team ||--|| Team: is playing against
-Team }o--|| Arbiter: is supervising
+#+begin_src plantuml :file img/2_2.png :exports both :cache yes
+Team "2" }o-Right-|| Arbiter: is supervising
 #+end_src
 
-#+RESULTS:
+#+attr_latex: :float t
+#+RESULTS[18f9f87c0851630271f1bb171350c61def773104]:
 [[file:img/2_2.png]]
 
 ** 2.3
@@ -117,15 +119,16 @@ Team }o--|| Arbiter: is supervising
 У каждого человека (мужчины и женщины) есть отец и мать
 #+end_quote
 
-#+begin_src plantuml :file img/2_3.png :exports both
-Woman }o--|| Woman: is the mother to
-Man }o--|| Woman: is the mother to
+#+begin_src plantuml :file img/2_3.png :exports both :cache yes
+Woman "is daughter of" }o--|| "is mother of" Woman
+Man "is son of" }o-Down-|| "is mother of" Woman
 
-Woman }o--|| Man: is the father to
-Man }o--|| Man: is the father to
+Woman "is daughter of" }o--|| "is father of" Man
+Man "is son of" }o--|| "is father of" Man
 #+end_src
 
-#+RESULTS:
+#+attr_latex: :float t
+#+RESULTS[84c91f23730c20fc2e7f04de5261cedb42aeea4e]:
 [[file:img/2_3.png]]
 
 
@@ -133,3 +136,13 @@ Man }o--|| Man: is the father to
 #+begin_quote
 Смоделируйте E/R-модель в виде E/R диаграммы
 #+end_quote
+
+#+begin_src plantuml :file img/task3.png :cache yes
+Entity "contains" ||--o{ "belongs to" Attribute
+Entity "has" }o---o{ "2" Relation
+Relation "has" ||-down-o{ "2" Role
+#+end_src
+
+#+attr_latex: :width 10cm
+#+RESULTS[89c02dcf6c7a2af3dad9e7921c757b53902d5e39]:
+[[file:img/task3.png]]
